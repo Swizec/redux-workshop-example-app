@@ -1,9 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const Events = () => (
+import { fetchEvents } from "./actions";
+import { Button } from "./FormElements";
+
+const EventList = () => null;
+
+const Events = connect(
+    state => ({
+        events: state.events
+    }),
+    {
+        fetchEvents
+    }
+)(({ events, fetchEvents }) => (
     <div>
-        <h1>List of Events</h1>
+        <h1>Events in San Francisco</h1>
+        <EventList events={events} />
+        <Button onClick={fetchEvents} label="Fetch Events" />
     </div>
-);
+));
 
 export default Events;
