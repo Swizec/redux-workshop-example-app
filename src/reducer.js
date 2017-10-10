@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 
 const events = (state = [], action) => {
-    console.log("hai reducer", action);
     switch (action.type) {
+        case "EVENTS_RECEIVED":
+            return action.events;
         default:
             return state;
     }
