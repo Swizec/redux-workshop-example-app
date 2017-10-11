@@ -5,6 +5,7 @@
   "dependencies": {
     "date-fns": "^1.28.5",
     "downshift": "^1.11.1",
+    "lodash": "^4.17.4",
     "match-sorter": "^2.0.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",

@@ -8,7 +8,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { createStore, applyMiddleware } from "redux";
 
 import thunkMiddleware from "redux-thunk";
-import sagaMiddleware from "redux-saga";
 import logger from "redux-logger";
 
 import registerServiceWorker from "./registerServiceWorker";

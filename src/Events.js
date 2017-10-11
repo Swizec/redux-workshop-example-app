@@ -5,7 +5,7 @@ import format from "date-fns/format";
 import matchSorter from "match-sorter";
 
 import Downshift from "downshift";
-import { fetchEvents } from "./actions";
+import { fetchEventsNextPage } from "./actions";
 import { Button, Input } from "./FormElements";
 
 const EventStyle = styled.div`
@@ -82,13 +82,17 @@ class EventsContainer extends React.Component {
     };
 
     render() {
-        const { events, fetchEvents } = this.props;
+        const { events, fetchEventsNextPage } = this.props;
 
         return (
             <div>
                 <h1>Find Events in San Francisco</h1>
                 <SearchableEventList events={events} getItems={this.getItems} />
-                <Button onClick={fetchEvents} label="Fetch Events" />
+                <Button
+                    onClick={fetchEventsNextPage}
+                    style={{ marginTop: "15px" }}
+                    label="Fetch More Events"
+                />
             </div>
         );
     }
@@ -96,10 +100,10 @@ class EventsContainer extends React.Component {
 
 function mapStateToProps({ events }) {
     return {
-        events
+        events: events.events
     };
 }
 
 export default connect(mapStateToProps, {
-    fetchEvents
+    fetchEventsNextPage
 })(EventsContainer);
