@@ -35,4 +35,11 @@ function addToCart(item) {
     };
 }
 
-export { fetchEvents, fetchEventsNextPage, addToCart };
+function removeFromCart(item) {
+    return {
+        type: "REMOVE_FROM_CART",
+        item
+    };
+}
+
+export { fetchEvents, fetchEventsNextPage, addToCart, removeFromCart };

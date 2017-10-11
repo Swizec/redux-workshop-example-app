@@ -4,14 +4,38 @@ import styled from "styled-components";
 
 import { EventList } from "./Events";
 import { EventStyle, Event } from "./Event";
+import { Button } from "./FormElements";
+import { removeFromCart } from "./actions";
 
-const RemovableEvent = ({ event }) => (
-    <EventStyle>
-        <Event event={event} />
-    </EventStyle>
-);
+class RemovableEvent extends React.Component {
+    state = {
+        editable: false
+    };
 
-class ShoppingCartContainer extends React.Component {
+    toggleEditable = () => this.setState({ editable: !this.state.editable });
+
+    remove = () => this.props.removeFromCart(this.props.event);
+
+    render() {
+        const { event } = this.props,
+            { editable } = this.state;
+
+        return (
+            <EventStyle onClick={this.toggleEditable}>
+                <Event event={event} />
+                {editable ? (
+                    <Button label="Remove" onClick={this.remove} />
+                ) : null}
+            </EventStyle>
+        );
+    }
+}
+
+const RemovableEventContainer = connect(null, {
+    removeFromCart
+})(RemovableEvent);
+
+class ShoppingCart extends React.Component {
     render() {
         const { items } = this.props;
 
@@ -20,7 +44,7 @@ class ShoppingCartContainer extends React.Component {
                 <h1>Your shopping cart</h1>
                 <EventList events={items}>
                     {({ event }) => (
-                        <RemovableEvent event={event} key={event.id} />
+                        <RemovableEventContainer event={event} key={event.id} />
                     )}
                 </EventList>
             </div>
@@ -30,4 +54,4 @@ class ShoppingCartContainer extends React.Component {
 
 export default connect(state => ({
     items: state.shoppingCart.items
-}))(ShoppingCartContainer);
+}))(ShoppingCart);

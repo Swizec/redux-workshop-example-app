@@ -31,6 +31,11 @@ const shoppingCart = (state = { items: [] }, action) => {
                 ...state,
                 items: state.items.concat(action.item)
             };
+        case "REMOVE_FROM_CART":
+            return {
+                ...state,
+                items: state.items.filter(({ id }) => id !== action.item.id)
+            };
         default:
             return state;
     }
