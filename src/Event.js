@@ -6,11 +6,10 @@ import { connect } from "react-redux";
 
 import { isInShoppingCart } from "./reducer";
 
-const EventStyle = styled.div`
+export const EventStyle = styled.div`
     display: flex;
     flex-direction: row;
     padding: 20px;
-    margin: 10px 0;
     align-items: center;
 `;
 
@@ -26,7 +25,7 @@ const SelectedEventStyle = EventStyle.extend`
     background: rgba(219, 112, 147, 0.3);
 `;
 
-const EventThumbContainer = styled.div`
+const EventThumbStyle = styled.div`
     width: 250px;
 `;
 
@@ -37,10 +36,10 @@ const EventMeta = styled.div`
     padding: 20px;
 `;
 
-const Event = ({ event }) => [
-    <EventThumbContainer key="thumb">
+export const Event = ({ event }) => [
+    <EventThumbStyle key="thumb">
         <img src={event.imageUrl} style={{ width: "100%" }} />
-    </EventThumbContainer>,
+    </EventThumbStyle>,
     <EventMeta key="meta">
         <h2>{event.name}</h2>
         <p>{format(new Date(event.eventDateLocal), "ddd Do MMMM, hh:mma")}</p>
@@ -72,4 +71,4 @@ const SelectableEventContainer = connect(
     );
 });
 
-export default SelectableEventContainer;
+export { SelectableEventContainer as SelectableEvent };

@@ -7,7 +7,7 @@ import Downshift from "downshift";
 import { fetchEventsNextPage } from "./actions";
 import { Button, Input } from "./FormElements";
 
-import SelectableEvent from "./SelectableEvent";
+import { SelectableEvent } from "./Event";
 
 const EventListStyled = styled.div`
     display: flex;
@@ -16,9 +16,10 @@ const EventListStyled = styled.div`
     margin: 0 auto;
 `;
 
-const EventList = ({ events }) => (
+export const EventList = ({ events, children }) => (
     <EventListStyled>
-        {events.map(event => <SelectableEvent event={event} key={event.id} />)}
+        <h3>{events.length} events</h3>
+        {events.map(event => children({ event }))}
     </EventListStyled>
 );
 
@@ -32,7 +33,13 @@ const SearchableEventList = ({ events, getItems }) => (
                         placeholder: `Search from ${events.length} events`
                     })}
                 />
-                {!isOpen ? null : <EventList events={getItems(inputValue)} />}
+                {!isOpen ? null : (
+                    <EventList events={getItems(inputValue)}>
+                        {({ event }) => (
+                            <SelectableEvent event={event} key={event.id} />
+                        )}
+                    </EventList>
+                )}
             </div>
         )}
     </Downshift>

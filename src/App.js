@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route } from "react-router";
+import { Route, withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import "./App.css";
@@ -37,4 +37,4 @@ function mapStateToProps({ shoppingCart }) {
     };
 }
 
-export default connect(mapStateToProps)(AppContainer);
+export default withRouter(connect(mapStateToProps)(AppContainer));
