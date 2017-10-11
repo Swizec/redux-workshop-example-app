@@ -2,9 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import format from "date-fns/format";
+import matchSorter from "match-sorter";
 
+import Downshift from "downshift";
 import { fetchEvents } from "./actions";
-import { Button } from "./FormElements";
+import { Button, Input } from "./FormElements";
 
 const EventStyle = styled.div`
     display: flex;
@@ -52,19 +54,52 @@ const EventList = ({ events }) => (
     </EventListStyled>
 );
 
-const Events = connect(
-    state => ({
-        events: state.events
-    }),
-    {
-        fetchEvents
-    }
-)(({ events, fetchEvents }) => (
-    <div>
-        <h1>Find Events in San Francisco</h1>
-        <EventList events={events} />
-        <Button onClick={fetchEvents} label="Fetch Events" />
-    </div>
-));
+const SearchableEventList = ({ events, getItems }) => (
+    <Downshift itemToString={item => (item ? item.name : "")}>
+        {({ getInputProps, isOpen, inputValue }) => (
+            <div>
+                <Input
+                    {...getInputProps({
+                        isOpen,
+                        placeholder: `Search from ${events.length} events`
+                    })}
+                />
+                {!isOpen ? null : <EventList events={getItems(inputValue)} />}
+            </div>
+        )}
+    </Downshift>
+);
 
-export default Events;
+class EventsContainer extends React.Component {
+    getItems = value => {
+        const { events } = this.props;
+
+        return value
+            ? matchSorter(events, value, {
+                  keys: ["name"]
+              })
+            : events;
+    };
+
+    render() {
+        const { events, fetchEvents } = this.props;
+
+        return (
+            <div>
+                <h1>Find Events in San Francisco</h1>
+                <SearchableEventList events={events} getItems={this.getItems} />
+                <Button onClick={fetchEvents} label="Fetch Events" />
+            </div>
+        );
+    }
+}
+
+function mapStateToProps({ events }) {
+    return {
+        events
+    };
+}
+
+export default connect(mapStateToProps, {
+    fetchEvents
+})(EventsContainer);

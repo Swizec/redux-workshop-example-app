@@ -4,7 +4,6 @@ class Api {
     static APP_TOKEN = `900fcbaf-7526-3d39-9aec-30e1c241b7da`;
 
     static events(city = "San Francisco") {
-        console.log("making request");
         return fetch(
             `${Api.URL}/search/catalog/events/v3?status=active |contingent&city="${city}"&rows=200`,
             {
