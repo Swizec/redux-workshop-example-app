@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import format from "date-fns/format";
 
 import { fetchEvents } from "./actions";
 import { Button } from "./FormElements";
@@ -37,6 +38,9 @@ const Event = ({ event }) => (
         </EventThumbContainer>
         <EventMeta>
             <h2>{event.name}</h2>
+            <p>
+                {format(new Date(event.eventDateLocal), "ddd Do MMMM, hh:mma")}
+            </p>
             <p>{event.description}</p>
         </EventMeta>
     </EventStyle>
@@ -57,7 +61,7 @@ const Events = connect(
     }
 )(({ events, fetchEvents }) => (
     <div>
-        <h1>Events in San Francisco</h1>
+        <h1>Find Events in San Francisco</h1>
         <EventList events={events} />
         <Button onClick={fetchEvents} label="Fetch Events" />
     </div>
