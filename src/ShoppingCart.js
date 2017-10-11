@@ -8,6 +8,7 @@ import { EventList } from "./Events";
 import { EventStyle, Event } from "./Event";
 import { Button, ManagedInput } from "./FormElements";
 import { removeFromCart } from "./actions";
+import CheckoutForm from "./CheckoutForm";
 
 class RemovableEvent extends React.Component {
     state = {
@@ -51,13 +52,6 @@ const Home = ({ items, match }) => (
     </div>
 );
 
-const Checkout = ({ items, match }) => (
-    <div>
-        <h1>Checkout {items.length} tickets</h1>
-        <Link to="/cart">Back</Link>
-    </div>
-);
-
 class ShoppingCart extends React.Component {
     render() {
         const { items, match } = this.props;
@@ -74,7 +68,7 @@ class ShoppingCart extends React.Component {
                 <Route
                     path={`${match.url}/checkout`}
                     component={({ match }) => (
-                        <Checkout items={items} match={match} />
+                        <CheckoutForm items={items} match={match} />
                     )}
                 />
             </div>

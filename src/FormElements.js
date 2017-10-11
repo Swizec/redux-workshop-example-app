@@ -21,8 +21,8 @@ const ButtonStyle = styled.button`
     }
 `;
 
-const Button = ({ onClick, label, style }) => (
-    <ButtonStyle onClick={onClick} style={style}>
+const Button = ({ onClick, label, ...rest }) => (
+    <ButtonStyle onClick={onClick} {...rest}>
         {label}
     </ButtonStyle>
 );
@@ -46,4 +46,8 @@ const Input = styled.input`
     }
 `;
 
-export { Button, Input };
+const NarrowInput = Input.extend`
+    width: 200px;
+`;
+
+export { Button, Input, NarrowInput };

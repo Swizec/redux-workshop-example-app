@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import isAfter from "date-fns/is_after";
 import { createSelector } from "reselect";
+import { reducer as formReducer } from "redux-form";
 
 const events = (state = { page: 0, events: [] }, action) => {
     switch (action.type) {
@@ -50,7 +51,8 @@ export const isInShoppingCart = createSelector(
 
 const rootReducer = combineReducers({
     events,
-    shoppingCart
+    shoppingCart,
+    form: formReducer
 });
 
 export default rootReducer;
