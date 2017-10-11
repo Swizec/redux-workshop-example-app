@@ -28,4 +28,11 @@ function fetchEventsNextPage() {
     };
 }
 
-export { fetchEvents, fetchEventsNextPage };
+function addToCart(item) {
+    return {
+        type: "ADD_TO_CART",
+        item
+    };
+}
+
+export { fetchEvents, fetchEventsNextPage, addToCart };

@@ -1,30 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import format from "date-fns/format";
 import matchSorter from "match-sorter";
 
 import Downshift from "downshift";
 import { fetchEventsNextPage } from "./actions";
 import { Button, Input } from "./FormElements";
 
-const EventStyle = styled.div`
-    display: flex;
-    flex-direction: row;
-    padding: 10px 0;
-    align-items: center;
-`;
-
-const EventThumbContainer = styled.div`
-    width: 250px;
-`;
-
-const EventMeta = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 2;
-    padding: 20px;
-`;
+import SelectableEvent from "./SelectableEvent";
 
 const EventListStyled = styled.div`
     display: flex;
@@ -33,24 +16,9 @@ const EventListStyled = styled.div`
     margin: 0 auto;
 `;
 
-const Event = ({ event }) => (
-    <EventStyle>
-        <EventThumbContainer>
-            <img src={event.imageUrl} style={{ width: "100%" }} />
-        </EventThumbContainer>
-        <EventMeta>
-            <h2>{event.name}</h2>
-            <p>
-                {format(new Date(event.eventDateLocal), "ddd Do MMMM, hh:mma")}
-            </p>
-            <p>{event.description}</p>
-        </EventMeta>
-    </EventStyle>
-);
-
 const EventList = ({ events }) => (
     <EventListStyled>
-        {events.map(event => <Event event={event} key={event.id} />)}
+        {events.map(event => <SelectableEvent event={event} key={event.id} />)}
     </EventListStyled>
 );
 

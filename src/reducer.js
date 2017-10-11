@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import isAfter from "date-fns/is_after";
+import { createSelector } from "reselect";
 
 const events = (state = { page: 0, events: [] }, action) => {
     switch (action.type) {
@@ -23,8 +24,28 @@ const events = (state = { page: 0, events: [] }, action) => {
     }
 };
 
+const shoppingCart = (state = { items: [] }, action) => {
+    switch (action.type) {
+        case "ADD_TO_CART":
+            return {
+                ...state,
+                items: state.items.concat(action.item)
+            };
+        default:
+            return state;
+    }
+};
+
+export const isInShoppingCart = createSelector(
+    [(state, event) => event.id, (state, event) => state.shoppingCart],
+    (eventId, shoppingCart) => {
+        return shoppingCart.items.map(item => item.id).includes(eventId);
+    }
+);
+
 const rootReducer = combineReducers({
-    events
+    events,
+    shoppingCart
 });
 
 export default rootReducer;
