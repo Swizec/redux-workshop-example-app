@@ -73,6 +73,11 @@ const checkout = (
     }
 };
 
+export const getLastPurchase = createSelector(
+    [state => state.checkout.purchases],
+    purchases => purchases[purchases.length - 1]
+);
+
 const rootReducer = combineReducers({
     events,
     shoppingCart,

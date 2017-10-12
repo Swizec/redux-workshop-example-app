@@ -4,6 +4,7 @@ import { Field, reduxForm } from "redux-form";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { checkoutTickets } from "./actions";
+import { getLastPurchase } from "./reducer";
 import PropTypes from "prop-types";
 
 import { Input, NarrowInput, Button } from "./FormElements";
@@ -109,13 +110,13 @@ class Checkout extends React.Component {
     };
 
     purchased = () => {
-        const { purchases } = this.props;
+        const { lastPurchase: { items } } = this.props;
 
         return (
             <Middle>
-                <h1>You bought {purchases.length} tickets!</h1>
+                <h1>You bought {items.length} tickets!</h1>
 
-                {purchases.map(({ name }, i) => <Row key={i}>{name}</Row>)}
+                {items.map(({ name }, i) => <Row key={i}>{name}</Row>)}
 
                 <Link to="/events">Get more</Link>
             </Middle>
@@ -136,5 +137,6 @@ export default connect(state => ({
     purchases: state.checkout.purchases,
     person: state.checkout.person,
     purchased: state.checkout.purchased,
-    items: state.shoppingCart.items.length
+    items: state.shoppingCart.items.length,
+    lastPurchase: getLastPurchase(state)
 }))(Checkout);
