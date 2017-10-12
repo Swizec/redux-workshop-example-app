@@ -10,7 +10,7 @@ import ShoppingCart from "./ShoppingCart";
 
 class AppContainer extends Component {
     render() {
-        const { items } = this.props;
+        const { items, purchases } = this.props;
 
         return (
             <div className="App">
@@ -19,6 +19,7 @@ class AppContainer extends Component {
                         <Link to="/events">Event Listing</Link>
                         &nbsp;|&nbsp;
                         <Link to="/cart">Shopping Cart ({items})</Link>
+                        &nbsp;|&nbsp; Total purchases: {purchases}
                     </nav>
                 </header>
                 <div>
@@ -31,9 +32,10 @@ class AppContainer extends Component {
     }
 }
 
-function mapStateToProps({ shoppingCart }) {
+function mapStateToProps({ shoppingCart, checkout }) {
     return {
-        items: shoppingCart.items.length
+        items: shoppingCart.items.length,
+        purchases: checkout.purchases.length
     };
 }
 

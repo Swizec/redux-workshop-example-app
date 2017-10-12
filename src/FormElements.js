@@ -19,6 +19,10 @@ const ButtonStyle = styled.button`
         box-shadow: 0 2px #27496d;
         transform: translateY(5px);
     }
+    &[disabled] {
+        background-color: lightgrey;
+        box-shadow: 0 2px darkgrey;
+    }
 `;
 
 const Button = ({ onClick, label, ...rest }) => (

@@ -67,9 +67,7 @@ class ShoppingCart extends React.Component {
                 />
                 <Route
                     path={`${match.url}/checkout`}
-                    component={({ match }) => (
-                        <CheckoutForm items={items} match={match} />
-                    )}
+                    component={({ match }) => <CheckoutForm match={match} />}
                 />
             </div>
         );

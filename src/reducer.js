@@ -37,6 +37,11 @@ const shoppingCart = (state = { items: [] }, action) => {
                 ...state,
                 items: state.items.filter(({ id }) => id !== action.item.id)
             };
+        case "PURCHASED":
+            return {
+                ...state,
+                items: []
+            };
         default:
             return state;
     }
@@ -49,9 +54,29 @@ export const isInShoppingCart = createSelector(
     }
 );
 
+const checkout = (
+    state = { person: {}, purchases: [], purchased: false },
+    action
+) => {
+    switch (action.type) {
+        case "PURCHASED":
+            return {
+                ...state,
+                person: { ...state.person, ...action.person },
+                purchases: state.purchases.concat({ items: action.purchase }),
+                purchased: true
+            };
+        case "ADD_TO_CART":
+            return { ...state, purchased: false };
+        default:
+            return state;
+    }
+};
+
 const rootReducer = combineReducers({
     events,
     shoppingCart,
+    checkout,
     form: formReducer
 });
 
