@@ -62,7 +62,14 @@ class EventsContainer extends React.Component {
         return (
             <div>
                 <h1>Find Events in San Francisco</h1>
+
                 <SearchableEventList events={events} getItems={this.getItems} />
+                <h3>Show off SSR</h3>
+                <EventList events={events}>
+                    {({ event }) => (
+                        <SelectableEvent event={event} key={event.id} />
+                    )}
+                </EventList>
                 <Button
                     onClick={fetchEventsNextPage}
                     style={{ marginTop: "15px" }}

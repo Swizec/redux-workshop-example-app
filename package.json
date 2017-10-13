@@ -5,9 +5,13 @@
   "dependencies": {
     "date-fns": "^1.28.5",
     "downshift": "^1.11.1",
+    "express": "^4.16.2",
     "gh-pages": "^1.0.0",
+    "ignore-styles": "^5.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
     "match-sorter": "^2.0.2",
+    "morgan": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
@@ -30,9 +34,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-      "eject": "react-scripts eject",
-      "predeploy": "npm run build",
-      "deploy": "gh-pages -d build"
-  },
-    "homepage": "https://swizec.github.io/redux-workshop-example-app"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start:server": "NODE_ENV=development node server/index.js"
+  }
 }
